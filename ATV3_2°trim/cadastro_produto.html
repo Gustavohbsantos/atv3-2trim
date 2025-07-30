@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listar Usuários</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Lista de Usuários</h1>
+    <table id="tabela-usuarios">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Matrícula</th>
+                <th>Função</th>
+            </tr>
+        </thead>
+        <tbody>
+           
+        </tbody>
+    </table>
+
+    <script>
+        fetch('listar_usuarios.php') 
+            .then(response => response.json())
+            .then(data => {
+                const tabela = document.getElementById('tabela-usuarios').getElementsByTagName('tbody')[0];
+
+                data.forEach(usuario => {
+                    let novaLinha = tabela.insertRow();
+
+                    let celulaId = novaLinha.insertCell();
+                    let textoId = document.createTextNode(usuario.id);
+                    celulaId.appendChild(textoId);
+
+                    let celulaNome = novaLinha.insertCell();
+                    let textoNome = document.createTextNode(usuario.nome);
+                    celulaNome.appendChild(textoNome);
+
+                    let celulaMatricula = novaLinha.insertCell();
+                    let textoMatricula = document.createTextNode(usuario.matricula);
+                    celulaMatricula.appendChild(textoMatricula);
+
+                    let celulaFuncao = novaLinha.insertCell();
+                    let textoFuncao = document.createTextNode(usuario.funcao);
+                    celulaFuncao.appendChild(textoFuncao);
+                });
+            })
+            .catch(error => console.error('Erro ao obter usuários:', error));
+    </script>
+    <a href="cadastrar_usuario.html" class="link-basico">Cadastrar Novo Usuário</a>
+</body>
+</html>

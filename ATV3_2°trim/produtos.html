@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estoque</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Estoque</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Quantidade</th>
+                <th>Preço(R$)</th>
+            </tr>
+        </thead>
+        <tbody id="tabela-produtos"></tbody>
+    </table>
+
+    <script>
+        fetch('listar_produtos.php')
+        .then(res => res.json())
+        .then(produtos=>{
+            const tabela = document.getElementById('tabela-produtos');
+            produtos.forEach(produto => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${produto.nome}</td>
+                    <td>${produto.quantidade}</td>
+                    <td>${parseFloat(produto.preco).toFixed(2)}</td>
+                `;
+                tabela.appendChild(tr);
+            });
+        })
+        .catch(err =>{
+            console.error('Erro ao carregar os produtos'.err);
+        });
+    </script>
+    <a href="cadastro_produto.html" class="link-basico">
+                                    Cadastro de Produtos</a>
+</body>
+</html>
